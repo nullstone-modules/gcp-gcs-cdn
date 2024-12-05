@@ -1,8 +1,8 @@
 output "cdns" {
   value = [
     {
-      proxy_id   = google_compute_target_https_proxy.this.id
-      url_map_id = google_compute_url_map.https.id
+      proxy_id     = google_compute_target_https_proxy.this.id
+      url_map_name = google_compute_url_map.https.name
     }
   ]
 }
