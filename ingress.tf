@@ -4,6 +4,6 @@ data "ns_connection" "ingress" {
 }
 
 locals {
-  public_ip      = data.ns_connection.ingress.outputs.public_ip
-  certificate_id = data.ns_connection.ingress.outputs.certificate_id
+  public_ip          = data.ns_connection.ingress.outputs.public_ip
+  certificate_map_id = data.ns_connection.ingress.outputs.certificate_map_id
 }

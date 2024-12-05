@@ -1,12 +1,12 @@
 org_name: nullstone
 name: gcp-gcs-cdn
-friendly_name: 'GCS CDN '
+friendly_name: 'GCS CDN'
 description: Creates a CDN (Content Distribution Network) backed by a Cloud Storage static site.
 category: capability
 subcategory: ingress
 provider_types:
     - gcp
-platform: compute
+platform: cloud-cdn
 subplatform: ""
 type: ""
 appCategories:

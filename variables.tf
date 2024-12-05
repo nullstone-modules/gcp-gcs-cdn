@@ -38,9 +38,12 @@ EOF
 }
 
 variable "serve_while_stale" {
-  type = bool
-  default = true
+  type        = number
+  default     = 86400
   description = <<EOF
-Serve existing content from the cache (if available) when revalidating content with the origin, or when an error is encountered when refreshing the cache.
+The number of seconds to serve stale content before expiring.
+The default is 86400 seconds (1 day) which means the CDN will serve stale content from the cache for up to 1 day.
+After this delay, the CDN will update its cache for the asset.
+If the asset no longer exists in the bucket, the CDN will return 502 Bad Gateway.
 EOF
 }

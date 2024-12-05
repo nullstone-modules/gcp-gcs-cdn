@@ -1,13 +1,13 @@
-resource "google_compute_url_map" "this" {
+resource "google_compute_url_map" "https" {
   name            = "https-${local.resource_name}"
   description     = "HTTPS Routing for ${local.resource_name}"
-  default_service = local.gcs_bucket_id
+  default_service = google_compute_backend_bucket.this.id
 }
 
 resource "google_compute_target_https_proxy" "this" {
-  name             = local.resource_name
-  url_map          = google_compute_url_map.this.id
-  ssl_certificates = [local.certificate_id]
+  name            = local.resource_name
+  url_map         = google_compute_url_map.https.id
+  certificate_map = "//certificatemanager.googleapis.com/${local.certificate_map_id}"
 }
 
 resource "google_compute_global_forwarding_rule" "https" {
