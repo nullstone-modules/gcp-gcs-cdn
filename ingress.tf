@@ -12,5 +12,5 @@ data "ns_connection" "subdomain" {
 locals {
   public_ip          = data.ns_connection.ingress.outputs.public_ip
   certificate_map_id = data.ns_connection.ingress.outputs.certificate_map_id
-  subdomain_fqdn     = data.ns_connection.subdomain.outputs.subdomain_fqdn
+  subdomain_fqdn     = data.ns_connection.subdomain.outputs.fqdn
 }
