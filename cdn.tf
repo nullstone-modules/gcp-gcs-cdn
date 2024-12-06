@@ -1,3 +1,8 @@
+locals {
+  artifacts_dir = trimprefix(replace(local.artifacts_key_template, "{{app-version}}", local.app_version), "/")
+  path_prefix   = trimsuffix("/${local.artifacts_dir}", "/")
+}
+
 // This resource is configured to redirect all HTTP requests to HTTPS
 // It has no other purpose
 resource "google_compute_url_map" "http" {
@@ -31,7 +36,7 @@ resource "google_compute_url_map" "https" {
 
     default_route_action {
       url_rewrite {
-        path_prefix_rewrite = local.artifacts_key_template
+        path_prefix_rewrite = local.path_prefix
       }
     }
   }
