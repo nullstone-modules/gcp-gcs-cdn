@@ -15,6 +15,11 @@ resource "google_compute_url_map" "https" {
   description     = "HTTPS Routing for ${local.resource_name}"
   default_service = local.backend_id
 
+  host_rule {
+    hosts        = ["*"]
+    path_matcher = "primary"
+  }
+
   path_matcher {
     name            = "primary"
     default_service = local.backend_id
@@ -24,14 +29,9 @@ resource "google_compute_url_map" "https" {
       service = local.backend_id
     }
 
-    path_rule {
-      paths = ["/*"]
-      service = local.backend_id
-
-      route_action {
-        url_rewrite {
-          path_prefix_rewrite = local.artifacts_key_template
-        }
+    default_route_action {
+      url_rewrite {
+        path_prefix_rewrite = local.artifacts_key_template
       }
     }
   }

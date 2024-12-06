@@ -4,8 +4,9 @@ resource "google_compute_target_http_proxy" "this" {
 }
 
 resource "google_compute_global_forwarding_rule" "http" {
-  name       = "http-${local.resource_name}"
-  target     = google_compute_target_http_proxy.this.id
-  port_range = "80"
-  ip_address = local.public_ip
+  name                  = "http-${local.resource_name}"
+  target                = google_compute_target_http_proxy.this.id
+  port_range            = "80"
+  ip_address            = local.public_ip
+  load_balancing_scheme = "EXTERNAL_MANAGED"
 }
