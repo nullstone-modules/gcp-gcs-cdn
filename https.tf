@@ -1,9 +1,3 @@
-resource "google_compute_url_map" "https" {
-  name            = "https-${local.resource_name}"
-  description     = "HTTPS Routing for ${local.resource_name}"
-  default_service = google_compute_backend_bucket.this.id
-}
-
 resource "google_compute_target_https_proxy" "this" {
   name            = local.resource_name
   url_map         = google_compute_url_map.https.id

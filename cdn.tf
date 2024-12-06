@@ -1,21 +1,38 @@
-resource "google_compute_backend_bucket" "this" {
-  name                 = local.resource_name
-  description          = "CDN for GCS Bucket ${local.resource_name}"
-  bucket_name          = local.gcs_bucket_name
-  enable_cdn           = true
-  compression_mode     = "AUTOMATIC"
-  edge_security_policy = google_compute_security_policy.this.id
+// This resource is configured to redirect all HTTP requests to HTTPS
+// It has no other purpose
+resource "google_compute_url_map" "http" {
+  name        = "http-${local.resource_name}"
+  description = "HTTP Routing for ${local.resource_name}"
 
-  cdn_policy {
-    cache_mode        = "CACHE_ALL_STATIC"
-    default_ttl       = var.default_ttl
-    max_ttl           = var.max_ttl
-    serve_while_stale = var.serve_while_stale
+  default_url_redirect {
+    https_redirect = true
+    strip_query    = false
   }
 }
 
-resource "google_compute_security_policy" "this" {
-  name        = local.resource_name
-  description = "Security policy for ${local.resource_name}"
-  type        = "CLOUD_ARMOR_EDGE"
+resource "google_compute_url_map" "https" {
+  name            = "https-${local.resource_name}"
+  description     = "HTTPS Routing for ${local.resource_name}"
+  default_service = local.backend_id
+
+  path_matcher {
+    name            = "primary"
+    default_service = local.backend_id
+
+    path_rule {
+      paths = ["/env.json"]
+      service = local.backend_id
+    }
+
+    path_rule {
+      paths = ["/*"]
+      service = local.backend_id
+
+      route_action {
+        url_rewrite {
+          path_prefix_rewrite = local.artifacts_key_template
+        }
+      }
+    }
+  }
 }
