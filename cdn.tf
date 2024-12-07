@@ -1,6 +1,7 @@
 locals {
-  artifacts_dir = trimprefix(replace(local.artifacts_key_template, "{{app-version}}", local.app_version), "/")
-  path_prefix   = trimsuffix("/${local.artifacts_dir}", "/")
+  effective_app_version = coalesce(local.app_version, "no-app-version")
+  artifacts_dir         = trimprefix(replace(local.artifacts_key_template, "{{app-version}}", local.effective_app_version), "/")
+  path_prefix           = trimsuffix("/${local.artifacts_dir}", "/")
 }
 
 // This resource is configured to redirect all HTTP requests to HTTPS
@@ -30,7 +31,7 @@ resource "google_compute_url_map" "https" {
     default_service = local.backend_id
 
     path_rule {
-      paths = ["/env.json"]
+      paths   = ["/env.json"]
       service = local.backend_id
     }
 
