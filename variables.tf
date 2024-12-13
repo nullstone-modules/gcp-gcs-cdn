@@ -12,11 +12,3 @@ locals {
   backend_id             = var.app_metadata["backend_id"]
   artifacts_key_template = var.app_metadata["artifacts_key_template"]
 }
-
-variable "client_ttl" {
-  type        = number
-  default     = 3600
-  description = <<EOF
-The time-to-live (TTL) for the content in the client's cache (browser cache).
-EOF
-}

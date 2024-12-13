@@ -6,6 +6,7 @@ resource "google_compute_target_https_proxy" "this" {
 
 resource "google_compute_global_forwarding_rule" "https" {
   name                  = "https-${local.resource_name}"
+  labels                = local.labels
   target                = google_compute_target_https_proxy.this.id
   port_range            = "443"
   ip_address            = local.public_ip
