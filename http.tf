@@ -5,6 +5,7 @@ resource "google_compute_target_http_proxy" "this" {
 
 resource "google_compute_global_forwarding_rule" "http" {
   name                  = "http-${local.resource_name}"
+  labels                = local.labels
   target                = google_compute_target_http_proxy.this.id
   port_range            = "80"
   ip_address            = local.public_ip
