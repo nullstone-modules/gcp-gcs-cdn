@@ -3,6 +3,12 @@ terraform {
     ns = {
       source = "nullstone-io/ns"
     }
+    google = {
+      source = "hashicorp/google"
+    }
+    archive = {
+      source = "hashicorp/archive"
+    }
   }
 }
 
