@@ -1,3 +1,6 @@
+# 0.1.4 (Feb 23, 2026)
+* Used google-beta provider to configure backend services permissions for deployer.
+
 # 0.1.3 (Feb 23, 2026)
 * Fixed deployer permissions to allow using the backend service in a Load Balancer.
 

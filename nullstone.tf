@@ -1,17 +1,3 @@
-terraform {
-  required_providers {
-    ns = {
-      source = "nullstone-io/ns"
-    }
-    google = {
-      source = "hashicorp/google"
-    }
-    archive = {
-      source = "hashicorp/archive"
-    }
-  }
-}
-
 data "ns_workspace" "this" {}
 
 // Generate a random suffix to ensure uniqueness of resources
