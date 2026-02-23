@@ -65,7 +65,7 @@ resource "google_compute_url_map" "https" {
     # Ensure we serve the notfound_document (e.g., `/404.html`) when we cannot find a document
     default_custom_error_response_policy {
       error_response_rule {
-        path                 = "/${trimprefix(local.notfound_document, "/")}"
+        path                 = "${local.path_prefix}/${trimprefix(local.notfound_document, "/")}"
         match_response_codes = ["404"]
       }
 

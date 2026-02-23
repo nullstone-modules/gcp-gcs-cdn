@@ -1,3 +1,6 @@
+# 0.1.7 (Feb 23, 2026)
+* Use `notfound_document` in versioned directory.
+
 # 0.1.6 (Feb 23, 2026)
 * Fixed configuration by using consistent rules in URL map.
 
