@@ -31,11 +31,6 @@ resource "google_compute_url_map" "https" {
     name            = "primary"
     default_service = local.effective_backend_id
 
-    path_rule {
-      paths   = ["/env.json"]
-      service = local.backend_id
-    }
-
     # Ensure `/` fetches the default document (e.g., `/index.html`)
     route_rules {
       priority = 1
@@ -48,6 +43,16 @@ resource "google_compute_url_map" "https" {
         url_rewrite {
           path_template_rewrite = "${local.path_prefix}/${local.default_document}"
         }
+      }
+    }
+
+    # Route /env.json to the bucket's root object `env.json`
+    route_rules {
+      priority = 2
+      service = local.backend_id
+
+      match_rules {
+        full_path_match = "/env.json"
       }
     }
 

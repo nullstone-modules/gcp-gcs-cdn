@@ -1,3 +1,6 @@
+# 0.1.6 (Feb 23, 2026)
+* Fixed configuration by using consistent rules in URL map.
+
 # 0.1.5 (Feb 23, 2026)
 * Added support for `default_document` and `notfound_document` in routing.
 
