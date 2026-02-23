@@ -2,6 +2,7 @@ locals {
   effective_app_version = coalesce(local.app_version, "no-app-version")
   artifacts_dir         = trimprefix(replace(local.artifacts_key_template, "{{app-version}}", local.effective_app_version), "/")
   path_prefix           = trimsuffix("/${local.artifacts_dir}", "/")
+  effective_backend_id  = var.clean_urls ? google_compute_backend_service.clean_urls_proxy[0].id : local.backend_id
 }
 
 // This resource is configured to redirect all HTTP requests to HTTPS
@@ -19,7 +20,7 @@ resource "google_compute_url_map" "http" {
 resource "google_compute_url_map" "https" {
   name            = "https-${local.resource_name}"
   description     = "HTTPS Routing for ${local.resource_name}"
-  default_service = local.backend_id
+  default_service = local.effective_backend_id
 
   host_rule {
     hosts        = ["*"]
@@ -28,7 +29,7 @@ resource "google_compute_url_map" "https" {
 
   path_matcher {
     name            = "primary"
-    default_service = local.backend_id
+    default_service = local.effective_backend_id
 
     path_rule {
       paths   = ["/env.json"]

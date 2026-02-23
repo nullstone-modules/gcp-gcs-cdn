@@ -12,3 +12,5 @@ type: ""
 appCategories:
     - static-site
 is_public: true
+include:
+    - proxy/*

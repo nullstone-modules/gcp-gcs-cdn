@@ -11,4 +11,15 @@ EOF
 locals {
   backend_id             = var.app_metadata["backend_id"]
   artifacts_key_template = var.app_metadata["artifacts_key_template"]
+  gcs_bucket_name        = var.app_metadata["gcs_bucket_name"]
+}
+
+variable "clean_urls" {
+  type    = bool
+  default = false
+
+  description = <<EOF
+Enable this to use "clean URLs" in the browser by appending ".html" when serving content from the backend (i.e. GCS Bucket).
+This will *NOT* add ".html" to requests that already have a file extension.
+EOF
 }
