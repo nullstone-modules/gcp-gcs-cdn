@@ -36,10 +36,35 @@ resource "google_compute_url_map" "https" {
       service = local.backend_id
     }
 
+    # Ensure `/` fetches the default document (e.g., `/index.html`)
+    route_rules {
+      priority = 1
+      service  = local.backend_id
+
+      match_rules {
+        path_template_match = "/"
+      }
+      route_action {
+        url_rewrite {
+          path_template_rewrite = "${local.path_prefix}/${local.default_document}"
+        }
+      }
+    }
+
     default_route_action {
       url_rewrite {
         path_prefix_rewrite = local.path_prefix
       }
+    }
+
+    # Ensure we serve the notfound_document (e.g., `/404.html`) when we cannot find a document
+    default_custom_error_response_policy {
+      error_response_rule {
+        path                 = "/${trimprefix(local.notfound_document, "/")}"
+        match_response_codes = ["404"]
+      }
+
+      error_service = local.backend_id
     }
   }
 }

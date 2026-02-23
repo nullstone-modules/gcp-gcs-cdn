@@ -1,3 +1,6 @@
+# 0.1.5 (Feb 23, 2026)
+* Added support for `default_document` and `notfound_document` in routing.
+
 # 0.1.4 (Feb 23, 2026)
 * Used google-beta provider to configure backend services permissions for deployer.
 

@@ -13,6 +13,8 @@ locals {
   artifacts_key_template = var.app_metadata["artifacts_key_template"]
   gcs_bucket_name        = var.app_metadata["gcs_bucket_name"]
   deployer_email         = var.app_metadata["deployer_email"]
+  default_document       = var.app_metadata["default_document"]
+  notfound_document      = var.app_metadata["notfound_document"]
 }
 
 variable "clean_urls" {
