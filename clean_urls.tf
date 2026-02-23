@@ -117,3 +117,12 @@ resource "google_compute_backend_service" "clean_urls_proxy" {
     group = google_compute_region_network_endpoint_group.clean_urls_proxy[0].id
   }
 }
+
+# Grant permission to the app deployer service account to use the backend service
+resource "google_compute_backend_service_iam_member" "clean_urls_proxy" {
+  count   = var.clean_urls ? 1 : 0
+  project = local.project_id
+  name    = google_compute_backend_service.clean_urls_proxy[0].name
+  role    = "roles/compute.loadBalancerServiceUser"
+  member  = "serviceAccount:${local.deployer_email}"
+}

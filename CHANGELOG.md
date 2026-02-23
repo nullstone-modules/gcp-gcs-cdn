@@ -1,3 +1,6 @@
+# 0.1.3 (Feb 23, 2026)
+* Fixed deployer permissions to allow using the backend service in a Load Balancer.
+
 # 0.1.2 (Feb 23, 2026)
 * Added `var.clean_urls` toggle to add `.html` to the request path if no file extension is specified.
 
