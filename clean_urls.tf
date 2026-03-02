@@ -56,7 +56,7 @@ resource "google_cloudfunctions2_function" "clean_urls_proxy" {
   depends_on = [
     google_project_iam_member.clean_urls_build_artifactregistry,
     google_project_iam_member.clean_urls_build_cloudbuild,
-    google_storage_bucket_iam_member.clean_urls_build_source_reader,
+    google_project_iam_member.clean_urls_build_storage_viewer,
   ]
 }
 
@@ -80,11 +80,11 @@ resource "google_project_iam_member" "clean_urls_build_cloudbuild" {
   member  = "serviceAccount:${google_service_account.clean_urls_build[0].email}"
 }
 
-resource "google_storage_bucket_iam_member" "clean_urls_build_source_reader" {
-  count  = var.clean_urls ? 1 : 0
-  bucket = google_storage_bucket.clean_urls_source[0].name
-  role   = "roles/storage.objectViewer"
-  member = "serviceAccount:${google_service_account.clean_urls_build[0].email}"
+resource "google_project_iam_member" "clean_urls_build_storage_viewer" {
+  count   = var.clean_urls ? 1 : 0
+  project = local.project_id
+  role    = "roles/storage.objectViewer"
+  member  = "serviceAccount:${google_service_account.clean_urls_build[0].email}"
 }
 
 resource "google_cloud_run_v2_service_iam_member" "clean_urls_proxy" {

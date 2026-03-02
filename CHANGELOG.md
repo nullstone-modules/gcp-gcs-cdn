@@ -1,3 +1,6 @@
+# 0.1.8 (Mar 02, 2026)
+* Granted necessary permissions to the build service account to access the staging bucket.
+
 # 0.1.7 (Feb 23, 2026)
 * Use `notfound_document` in versioned directory.
 
