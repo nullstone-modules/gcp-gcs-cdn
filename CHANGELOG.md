@@ -1,3 +1,6 @@
+# 0.1.9 (Mar 05, 2026)
+* Added `X-Nullstone-Version` request header to primary path matcher.
+
 # 0.1.8 (Mar 02, 2026)
 * Granted necessary permissions to the build service account to access the staging bucket.
 

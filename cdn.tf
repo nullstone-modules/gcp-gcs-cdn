@@ -31,6 +31,14 @@ resource "google_compute_url_map" "https" {
     name            = "primary"
     default_service = local.effective_backend_id
 
+    header_action {
+      request_headers_to_add {
+        header_name  = "X-Nullstone-Version"
+        header_value = local.effective_app_version
+        replace      = false
+      }
+    }
+
     # Ensure `/` fetches the default document (e.g., `/index.html`)
     route_rules {
       priority = 1
