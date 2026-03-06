@@ -22,7 +22,8 @@ func init() {
 
 func HandleRequest(w http.ResponseWriter, r *http.Request) {
 	bucketName := os.Getenv("GCS_BUCKET_NAME")
-	bucketObjectKey := objectKey(r.URL.Path)
+	defaultDocument := os.Getenv("DEFAULT_DOCUMENT")
+	bucketObjectKey := objectKey(r.URL.Path, defaultDocument)
 
 	proxyUrl := *r.URL
 	proxyUrl.Scheme = "http"
@@ -47,12 +48,17 @@ func HandleRequest(w http.ResponseWriter, r *http.Request) {
 	io.Copy(w, resp.Body)
 }
 
-func objectKey(urlPath string) string {
-	// If the request path has no file extension and doesn't end in `/`, add `.html` file extension
-	hasFileExtension := path.Ext(path.Base(urlPath)) != ""
-	hasTrailingSlash := strings.HasSuffix(urlPath, "/")
-	if !hasFileExtension && !hasTrailingSlash {
-		return urlPath + ".html"
+func objectKey(urlPath, defaultDocument string) string {
+	// If the request path has a file extension, this proxy acts as a pass-through
+	if hasFileExtension := path.Ext(path.Base(urlPath)) != ""; urlPath != "" && hasFileExtension {
+		return urlPath
 	}
-	return urlPath
+
+	// If the request path has no trailing slash, add it
+	if hasTrailingSlash := strings.HasSuffix(urlPath, "/"); !hasTrailingSlash {
+		urlPath += "/"
+	}
+
+	// Add <default_document> to the end of the request path
+	return urlPath + defaultDocument
 }

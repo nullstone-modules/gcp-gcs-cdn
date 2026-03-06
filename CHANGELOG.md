@@ -1,3 +1,6 @@
+# 0.1.10 (Mar 06, 2026)
+* Fixed clean URLs proxy with various request paths.
+
 # 0.1.9 (Mar 05, 2026)
 * Added `X-Nullstone-Version` request header to primary path matcher.
 

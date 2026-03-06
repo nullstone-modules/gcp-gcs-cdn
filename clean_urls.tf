@@ -49,7 +49,8 @@ resource "google_cloudfunctions2_function" "clean_urls_proxy" {
     timeout_seconds  = 60
     ingress_settings = "ALLOW_INTERNAL_AND_GCLB"
     environment_variables = {
-      GCS_BUCKET_NAME = local.gcs_bucket_name
+      GCS_BUCKET_NAME  = local.gcs_bucket_name
+      DEFAULT_DOCUMENT = local.default_document
     }
   }
 
