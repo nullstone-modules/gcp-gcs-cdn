@@ -1,3 +1,6 @@
+# 0.1.11 (May 20, 2026)
+* Added `var.post_app_metadata`.
+
 # 0.1.10 (Mar 06, 2026)
 * Fixed clean URLs proxy with various request paths.
 
