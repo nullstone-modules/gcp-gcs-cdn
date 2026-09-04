@@ -12,6 +12,7 @@ The subdomain address is automatically connected to the created Cloud CDN.
 
 This connection is also used to create an HTTPS connection.
 The CDN is configured to redirect HTTP:80 traffic to HTTPS:443 by serving HTTP traffic with `HTTP 301 (Moved Permanently)`.
+HTTPS enforces TLS 1.2+ (GCP SSL policy profile `RESTRICTED`); clients on TLS 1.0/1.1 are rejected.
 
 ## Versioned Assets
 

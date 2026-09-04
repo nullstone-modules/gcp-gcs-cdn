@@ -1,3 +1,6 @@
+# 0.1.12 (Sep 04, 2026)
+* Enforced TLS 1.2+ on the HTTPS proxy via a `RESTRICTED` SSL policy.
+
 # 0.1.11 (May 20, 2026)
 * Added `var.post_app_metadata`.
 
